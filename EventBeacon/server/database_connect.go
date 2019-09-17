@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"os"
 )
 
@@ -19,12 +20,10 @@ var db *sql.DB
 func initDb() {
 	config := dbConfig()
 	var err error
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		config[dbhost], config[dbport],
-		config[dbuser], config[dbpass], config[dbname])
+	psqlInfo := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		config[dbuser], config[dbpass], config[dbhost], config[dbport], config[dbname])
 
-	db, err = sql.Open("postgres", psqlInfo)
+	db, err = sql.Open("mysql", psqlInfo)
 	if err != nil {
 		panic(err)
 	}
