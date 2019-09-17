@@ -1,10 +1,10 @@
 package main
 
-import "time"
+// import "time"
 
 type Event struct {
 	Name        string    `json:"name"`
-	Date        time.Time `json:"date"`
+	// Date        time.Time `json:"date"`
 	Description string    `json:"description"`
 	Location    string    `json:"location"`
 }
