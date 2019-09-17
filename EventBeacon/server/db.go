@@ -8,7 +8,7 @@ import (
 var db *sql.DB
 var err error
 
-func main() {
+func dbconn() {
 	db, err = sql.Open("mysql", "<user>:<password>@tcp(127.0.0.1:3306)/<dbname>")
 	if err != nil {
 		panic(err.Error())
