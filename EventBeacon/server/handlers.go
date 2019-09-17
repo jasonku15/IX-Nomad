@@ -38,28 +38,15 @@ func EditEvent(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "EventId:", eventID)
 }
 
-func GetEvent(w http.ResponseWriter, r *http.Request) {
+func GetEventDetails(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "GetEvent")
 	vars := mux.Vars(r)
-	eventID := vars["EventId"]
-	fmt.Fprintln(w, "EventId:", eventID)
-	var event Event
-	result, err := db.Query("SELECT id, title from Events")
-	if err != nil {
-		panic(err.Error())
-	}
-	defer result.Close()
-	for result.Next() {
-		var post Post
-		err := result.Scan(&post.ID, &post.Title)
-		if err != nil {
-			panic(err.Error())
-		}
-		posts = append(posts, post)
-	}
-	json.NewEncoder(w).Encode(posts)
+	// eventID := vars["EventId"]
+	// fmt.Fprintln(w, "EventId:", eventID)
+	// result, err := db.Query("SELECT title,description from Events where eventID = eventID")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
+
 	//if err := json.NewEncoder(w).Encode(event); err != nil {
 	//	panic(err)
 	//}
@@ -133,7 +120,7 @@ func getAttendees(w http.ResponseWriter, r *http.Request){
 	}
 	defer result.Close()
 	for result.Next() {
-		
+
 		var post Post
 		err := result.Scan(&post.ID, &post.Title)
 		if err != nil {
