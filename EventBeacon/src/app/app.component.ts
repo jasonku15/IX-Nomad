@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+@Component({ selector: 'app-root', templateUrl: 'app.component.html', styleUrls: ['./app.component.css'] })
 export class AppComponent implements OnInit {
     registerForm: FormGroup;
     submitted = false;
@@ -14,7 +14,11 @@ export class AppComponent implements OnInit {
             title: ['', Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]]
+            email: ['', [Validators.required, Validators.email]],
+            location: ['', [Validators.required]],
+            start: ['', [Validators.required]],
+            end: ['', [Validators.required]],
+            description: ['', [Validators.required]],
         });
     }
 
