@@ -18,8 +18,8 @@ CREATE TABLE `events` (
 DROP TABLE IF EXISTS `event_subscription`;
 CREATE TABLE `event_subscription` (
 
-  `user_id` int(11) NOT NULL ,
+  `user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL ,
   `event_id` int(11),
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`user_id`, `event_id`),
   FOREIGN KEY (event_id) REFERENCES events(event_id)
 );

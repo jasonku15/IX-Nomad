@@ -106,48 +106,123 @@ func cancelEvent(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintln(w, "EventId:", eventID)
 }
 
-func acceptEvent(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprintln(w, "Accept Event!")
-	// vars := mux.Vars(r)
-	// eventID := vars["EventId"]
-	// personName := vars["person"]
-	// // check if person already attends
-	// if(true){
-	// 	fmt.Fprintln(w, "EventId:", eventID)
-	// }
+func AcceptEvent(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Accept Event!")
+	vars := mux.Vars(r)
+	eventID := vars["eventid"]
+	userID := vars["userid"]
+	stmt, err := db.Prepare("INSERT IGNORE INTO event_subscription(user_id, event_id) VALUES(?, ?)")
+	if err != nil {
+		panic(err.Error())
+	}
+	_, e := stmt.Exec(userID, eventID)
+	if e != nil {
+		panic(err.Error())
+	}
 
-	// stmt, err := db.Prepare("insert into Attendee values(eventID, personName)")
-	// fmt.Fprintln(w, "EventId:", eventID)
+	str := "SELECT user_id from event_subscription where event_id = " + eventID
+	result, err := db.Query(str)
+	if err != nil {
+		panic(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var subscription Event_subscription
+	var users []User
+	for result.Next() {
+		u := new(User)
+		err := result.Scan(u.UserId)
+		if err != nil {
+			panic(err)
+		}
+		users = append(users, *u)
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	subscription.EventId = eventID
+	subscription.Users = users
+
+	fmt.Fprintln(w, subscription)
+
+	json.NewEncoder(w).Encode(subscription)
+
 }
 
-func quitEvent(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprintln(w, "Quit Event!")
-	// vars := mux.Vars(r)
-	// eventID := vars["EventId"]
-	// personName := vars["person"]
-	// // check if person already quits
-	// if(false){
-	// }
-	// stmt, err := db.Prepare("Delete From Attendee where criteria")
-	// fmt.Fprintln(w, "EventId:", eventID)
+func QuitEvent(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Quit Event!")
+	vars := mux.Vars(r)
+	eventID := vars["eventid"]
+	userID := vars["userid"]
+	stmt, err := db.Prepare("DELETE FROM event_subscription WHERE user_id = ? AND event_id = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+	_, e := stmt.Exec(userID, eventID)
+	if e != nil {
+		panic(err.Error())
+	}
+
+	str := "SELECT user_id from event_subscription where event_id = " + eventID
+	result, err := db.Query(str)
+	if err != nil {
+		panic(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var subscription Event_subscription
+	var users []User
+	for result.Next() {
+		u := new(User)
+		err := result.Scan(u.UserId)
+		if err != nil {
+			panic(err)
+		}
+		users = append(users, *u)
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	subscription.EventId = eventID
+	subscription.Users = users
+
+	fmt.Fprintln(w, subscription)
+
+	json.NewEncoder(w).Encode(subscription)
+
 }
 
 func getAttendees(w http.ResponseWriter, r *http.Request) {
-	// w.Header().Set("Content-Type", "application/json")
-	// var posts []Post
-	// result, err := db.Query("SELECT id, names from attendees")
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// defer result.Close()
-	// for result.Next() {
+	vars := mux.Vars(r)
+	eventID := vars["eventid"]
+	str := "SELECT user_id from event_subscription where event_id = " + eventID
+	result, err := db.Query(str)
+	if err != nil {
+		panic(err)
+	}
 
-	// 	var post Post
-	// 	err := result.Scan(&post.ID, &post.Title)
-	// 	if err != nil {
-	// 		panic(err.Error())
-	// 	}
-	// 	posts = append(posts, post)
-	// }
-	// json.NewEncoder(w).Encode(posts)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var subscription Event_subscription
+	var users []User
+	for result.Next() {
+		u := new(User)
+		err := result.Scan(u.UserId)
+		if err != nil {
+			panic(err)
+		}
+		users = append(users, *u)
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	subscription.EventId = eventID
+	subscription.Users = users
+
+	fmt.Fprintln(w, subscription)
+
+	json.NewEncoder(w).Encode(subscription)
+
 }
