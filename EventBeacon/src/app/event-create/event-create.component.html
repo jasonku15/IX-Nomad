@@ -65,7 +65,7 @@
                   <textarea formControlName="description" name="message" rows="5" cols="30" class="form-control" placeholder="Enter a description for the event"></textarea>
               </div>
               <div class="text-center">
-                  <button class="btn btn-primary mr-1"> Submit Event</button>
+                  <button class="btn btn-primary mr-1" (click)="onSubmit"> Submit Event</button>
                   <button class="btn btn-secondary" type="reset" (click)="onReset()">Clear</button>
               </div>
           </form>

@@ -44,11 +44,18 @@
 }
 
 .point-cards {
-	padding-bottom: 10px
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.center-card{
+	text-align: center;
 }
 
 .card-img-top{
-	width: auto; height: 250px;}
+	width: auto; height: 250px;
+	text-align: center;
+}
 
 .card-footer, .card-text, .card-title {
 	text-align: center;
@@ -58,4 +65,8 @@
 	margin-top: 5px;
 	margin-left: 5px;
 	font-size: 24px;
+}
+
+.points-description {
+	padding: 20px;
 }
