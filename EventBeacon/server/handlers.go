@@ -73,25 +73,6 @@ func GetEventDetails(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func getPosts(w http.ResponseWriter, r *http.Request) {
-	// w.Header().Set("Content-Type", "application/json")
-	// var posts []Post
-	// result, err := db.Query("SELECT id, title from posts")
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// defer result.Close()
-	// for result.Next() {
-	// 	var post Post
-	// 	err := result.Scan(&post.ID, &post.Title)
-	// 	if err != nil {
-	// 		panic(err.Error())
-	// 	}
-	// 	posts = append(posts, post)
-	// }
-	// json.NewEncoder(w).Encode(posts)
-}
-
 func cancelEvent(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintln(w, "Cancel Event!")
 	// vars := mux.Vars(r)
@@ -145,8 +126,9 @@ func AcceptEvent(w http.ResponseWriter, r *http.Request) {
 	subscription.Users = users
 
 	fmt.Fprintln(w, subscription)
-
-	json.NewEncoder(w).Encode(subscription)
+	if err := json.NewEncoder(w).Encode(subscription); err != nil {
+		panic(err)
+	}
 
 }
 
@@ -189,8 +171,9 @@ func QuitEvent(w http.ResponseWriter, r *http.Request) {
 	subscription.Users = users
 
 	fmt.Fprintln(w, subscription)
-
-	json.NewEncoder(w).Encode(subscription)
+	if err := json.NewEncoder(w).Encode(subscription); err != nil {
+		panic(err)
+	}
 
 }
 
@@ -222,7 +205,8 @@ func getAttendees(w http.ResponseWriter, r *http.Request) {
 	subscription.Users = users
 
 	fmt.Fprintln(w, subscription)
-
-	json.NewEncoder(w).Encode(subscription)
+	if err := json.NewEncoder(w).Encode(subscription); err != nil {
+		panic(err)
+	}
 
 }

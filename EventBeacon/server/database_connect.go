@@ -56,17 +56,11 @@ func dbConfig() map[string]string {
 	if !ok {
 		panic("DBNAME environment variable required but not set")
 	}
-	conf[dbhost] = host
-	conf[dbport] = port
-	conf[dbuser] = user
-	conf[dbpass] = password
-	conf[dbname] = name
-
-	conf[dbhost] = "localhost"
-	conf[dbport] = "3306"
-	conf[dbuser] = "root"
-	conf[dbpass] = ""
-	conf[dbname] = "go-mysql-crud"
+	conf[dbhost] = host     //localhost
+	conf[dbport] = port     //3306
+	conf[dbuser] = user     // root
+	conf[dbpass] = password //
+	conf[dbname] = name     //go-mysql-crud
 
 	return conf
 }
