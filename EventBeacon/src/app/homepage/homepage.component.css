@@ -22,7 +22,7 @@
 }
 
 #descriptionText {
-	color: black;
+	color: white;
 	text-align: center;
 	font-size: 14px;
 	letter-spacing: 2px;
@@ -37,6 +37,14 @@
 	margin-top: -30px;
 	letter-spacing: 2px;
 	font-size: 32px;
+}
+
+.description {
+	text-align: center;
+}
+
+.point-cards {
+	padding-bottom: 10px
 }
 
 .card-img-top{
