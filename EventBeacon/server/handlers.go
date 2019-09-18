@@ -7,6 +7,8 @@ import (
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"strings"
+	// "reflect"
 )
 
 
@@ -14,8 +16,21 @@ import (
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 
+	type txt struct {
+		Text string `json:"text"`
+	}
+	var text txt
 	var event Event
-	json.Unmarshal(reqBody, &event)
+	json.Unmarshal(reqBody, &text)
+
+	s := strings.Split(text.Text, " ")
+
+	event.Name = s[0]
+	event.Description = s[1]
+	event.Location = s[2]
+
+
+
 	// stmt, err := db.Prepare("INSERT INTO events(name, description, location, time) VALUES(?, ?, ?, ?)")
 	stmt, err := db.Prepare("INSERT INTO events(name, description, location) VALUES(?, ?, ?)")
 	if err != nil {
