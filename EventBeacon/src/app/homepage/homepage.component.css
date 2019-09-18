@@ -10,19 +10,21 @@
 	background-position: center center;
 	padding-bottom: 100px;
     margin-bottom: -100px;
+    opacity: 0.80;
 }
 
 #title {
 	text-align: center;
-	color: black;
+	color: white;
 	padding-top: 50px;
+	font-weight: bold;
 	text-transform: uppercase;
 }
 
 #descriptionText {
 	color: black;
 	text-align: center;
-	font-size: 20px;
+	font-size: 14px;
 	letter-spacing: 2px;
 }
 
@@ -34,6 +36,7 @@
 	margin-bottom: 20px;
 	margin-top: -30px;
 	letter-spacing: 2px;
+	font-size: 32px;
 }
 
 .card-img-top{
@@ -46,4 +49,5 @@
 .points {
 	margin-top: 5px;
 	margin-left: 5px;
+	font-size: 24px;
 }
