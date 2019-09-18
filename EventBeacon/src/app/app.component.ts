@@ -22,8 +22,7 @@ export class AppComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             location: ['', [Validators.required]],
             start: ['', [Validators.required]],
-            end: ['', [Validators.required]],
-            description: ['', [Validators.required]],
+            end: ['', [Validators.required]]
         });
     }
 
