@@ -35,3 +35,15 @@
 	margin-top: -30px;
 	letter-spacing: 2px;
 }
+
+.card-img-top{
+	width: auto; height: 250px;}
+
+.card-footer, .card-text, .card-title {
+	text-align: center;
+}
+
+.points {
+	margin-top: 5px;
+	margin-left: 5px;
+}
