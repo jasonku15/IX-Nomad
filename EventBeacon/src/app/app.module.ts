@@ -6,15 +6,26 @@ import { AppComponent } from './app.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventLandingComponent } from './event-landing/event-landing.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+
+const routes: Routes = [
+  { path: 'home', component: HomepageComponent },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     EventListComponent,
     EventCreateComponent,
-    EventLandingComponent
+    EventLandingComponent,
+    HomepageComponent,
+    NavbarComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     AppRoutingModule,
     FormsModule,

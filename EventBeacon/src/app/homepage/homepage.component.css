@@ -1,0 +1,61 @@
+.container {
+	margin-top: 75px;
+}
+
+.overlay {
+	padding-bottom: 10px;
+	background: url("https://i1.wp.com/www.interactivenovascotia.com/wordpress/wp-content/uploads/2018/09/peggys-point-lighthouse-banner-2.jpg?ssl=1");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	padding-bottom: 100px;
+    margin-bottom: -100px;
+    opacity: 0.80;
+}
+
+#title {
+	text-align: center;
+	color: white;
+	padding-top: 50px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#descriptionText {
+	color: white;
+	text-align: center;
+	font-size: 14px;
+	letter-spacing: 2px;
+}
+
+.point-card-left{
+	margin-right: 2px;
+}
+
+#examples {
+	margin-bottom: 20px;
+	margin-top: -30px;
+	letter-spacing: 2px;
+	font-size: 32px;
+}
+
+.description {
+	text-align: center;
+}
+
+.point-cards {
+	padding-bottom: 10px
+}
+
+.card-img-top{
+	width: auto; height: 250px;}
+
+.card-footer, .card-text, .card-title {
+	text-align: center;
+}
+
+.points {
+	margin-top: 5px;
+	margin-left: 5px;
+	font-size: 24px;
+}

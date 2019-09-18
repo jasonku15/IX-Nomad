@@ -4,6 +4,7 @@ package main
 
 type Event struct {
 	Name        string `json:"name"`
+	Id          string `json:"name"`
 	Time        string `json:"date"`
 	Description string `json:"description"`
 	Location    string `json:"location"`
