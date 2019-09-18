@@ -22,7 +22,6 @@ export class EventCreateComponent implements OnInit {
             location: ['', [Validators.required]],
             start: ['', [Validators.required]],
             end: ['', [Validators.required]],
-            description: ['', [Validators.required]],
         });
     }
 
