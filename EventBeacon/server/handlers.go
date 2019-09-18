@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"github.com/gorilla/mux"
+	"encoding/json"
 )
 
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
@@ -41,22 +42,34 @@ func EditEvent(w http.ResponseWriter, r *http.Request) {
 func GetEventDetails(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "GetEvent")
 	vars := mux.Vars(r)
-	eventID := vars["EventId"]
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
+	}
+	eventID := vars["eventid"]
 	fmt.Fprintln(w, "EventId:", eventID)
-	result, err := db.Query("SELECT * from Events where eventID = " + eventID)
+	str := "SELECT * from events where event_id = " + eventID
+	fmt.Fprintln(w, str)
+
+	result, err := db.Query(str)
 	if err != nil {
 		panic(err)
 	}
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	reqBody, err := ioutil.ReadAll(r.Body)
-
+	// w.WriteHeader(http.StatusOK)
+	
 	var ev Event
-	json.Unmarshal(reqBody, &newEvent)
-	err = result.Scan(&ev.Name, &ev.Description, &ev.Location)
-	if err != nil {
-		panic(err)
+	json.Unmarshal(reqBody, &ev)
+	for result.Next() {
+		err = result.Scan(&ev.Id, &ev.Name, &ev.Description, &ev.Location)
+		if err != nil {
+			panic(err)
+		}
 	}
+	fmt.Fprintln(w, ev.Name)
+
+	json.NewEncoder(w).Encode(ev)
+
 }
 
 func getPosts(w http.ResponseWriter, r *http.Request) {
