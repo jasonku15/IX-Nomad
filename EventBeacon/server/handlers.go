@@ -40,16 +40,16 @@ func EditEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetEventDetails(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "GetEvent")
+	// fmt.Fprintln(w, "GetEvent")
 	vars := mux.Vars(r)
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
 	}
 	eventID := vars["eventid"]
-	fmt.Fprintln(w, "EventId:", eventID)
+	// fmt.Fprintln(w, "EventId:", eventID)
 	str := "SELECT * from events where event_id = " + eventID
-	fmt.Fprintln(w, str)
+	// fmt.Fprintln(w, str)
 
 	result, err := db.Query(str)
 	if err != nil {
@@ -66,7 +66,7 @@ func GetEventDetails(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-	fmt.Fprintln(w, ev.Name)
+	// fmt.Fprintln(w, ev.Name)
 
 	json.NewEncoder(w).Encode(ev)
 
