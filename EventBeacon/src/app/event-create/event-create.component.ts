@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html', styleUrls: ['./app.component.css'] })
-export class AppComponent implements OnInit {
-    registerForm: FormGroup;
+@Component({
+  selector: 'app-event-create',
+  templateUrl: './event-create.component.html',
+  styleUrls: ['./event-create.component.css']
+})
+export class EventCreateComponent implements OnInit {
+  registerForm: FormGroup;
     submitted = false;
 
     constructor(private formBuilder: FormBuilder) { }
@@ -42,3 +46,4 @@ export class AppComponent implements OnInit {
         this.registerForm.reset();
     }
 }
+
