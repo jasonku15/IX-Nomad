@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
@@ -112,7 +112,7 @@ func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	// }
 	
 	// var ev Event
-	fmt.Fprintln(w, string(jsonData))
+	// fmt.Fprintln(w, string(jsonData))
 
 	// json.NewEncoder(w).Encode(ev)
 
