@@ -14,16 +14,19 @@ import (
 
 // json body with fields
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
-	reqBody, _ := ioutil.ReadAll(r.Body)
+	// reqBody, _ := ioutil.ReadAll(r.Body)
 
-	type txt struct {
-		Text string `json:"text"`
-	}
-	var text txt
+	// type txt struct {
+	// 	Text string `json:"text"`
+	// }
+	// var text txt
 	var event Event
-	json.Unmarshal(reqBody, &text)
+	// json.Unmarshal(reqBody, &text)
 
-	s := strings.Split(text.Text, " ")
+	r.ParseForm()
+	text := r.FormValue("text")
+
+	s := strings.Split(text, " ")
 
 	event.Name = s[0]
 	event.Description = s[1]
