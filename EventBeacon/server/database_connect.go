@@ -40,6 +40,5 @@ func dbConfig() map[string]string {
 	conf[dbuser] = "root"
 	conf[dbpass] = ""
 	conf[dbname] = "go-mysql-crud"
-
 	return conf
 }
