@@ -1,0 +1,19 @@
+.container {
+	margin-top: 75px;
+}
+
+.overlay {
+	padding-bottom: 10px;
+	background-image: url("https://i1.wp.com/www.interactivenovascotia.com/wordpress/wp-content/uploads/2018/09/peggys-point-lighthouse-banner-2.jpg?ssl=1");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#title {
+	text-align: center;
+}
+
+#descriptionText {
+	color: blue;
+}

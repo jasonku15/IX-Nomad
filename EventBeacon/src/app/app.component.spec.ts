@@ -1,6 +1,31 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NavbarComponent } from './navbar.component';
+
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ NavbarComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -33,3 +58,4 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('.content span').textContent).toContain('EventBeacon app is running!');
   });
 });
+
