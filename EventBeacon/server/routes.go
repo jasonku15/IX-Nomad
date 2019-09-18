@@ -34,13 +34,13 @@ var routes = Routes{
 	},
 	Route{
 		"AcceptEvent",
-		"POST",
+		"GET",
 		"/acceptevent/{eventid}/{userid}",
 		AcceptEvent,
 	},
 	Route{
 		"QuitEvent",
-		"POST",
+		"GET",
 		"/quitevent/{eventid}/{userid}",
 		QuitEvent,
 	},
