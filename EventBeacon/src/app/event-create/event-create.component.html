@@ -62,10 +62,7 @@
               </div>
               <div class="form-group">
                   <label>Description</label>
-                  <textarea formControlName="description" required name="message" minlength="10" rows="5" cols="30" class="form-control" placeholder="Enter a description for the event" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
-                  <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
-                      <div *ngIf="f.description.errors.required">A description for your event is required</div>
-                  </div>
+                  <textarea formControlName="description" name="message" rows="5" cols="30" class="form-control" placeholder="Enter a description for the event"></textarea>
               </div>
               <div class="text-center">
                   <button class="btn btn-primary mr-1"> Submit Event</button>
