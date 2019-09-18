@@ -1,27 +1,119 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
+	"strings"
+	// "reflect"
 )
 
+
+// json body with fields
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
+
+	type txt struct {
+		Text string `json:"text"`
+	}
+	var text txt
 	var event Event
-	json.Unmarshal(reqBody, &event)
-	stmt, err := db.Prepare("INSERT INTO events(name, description, location, time) VALUES(?, ?, ?, ?)")
+	json.Unmarshal(reqBody, &text)
+
+	s := strings.Split(text.Text, " ")
+
+	event.Name = s[0]
+	event.Description = s[1]
+	event.Location = s[2]
+
+
+
+	// stmt, err := db.Prepare("INSERT INTO events(name, description, location, time) VALUES(?, ?, ?, ?)")
+	stmt, err := db.Prepare("INSERT INTO events(name, description, location) VALUES(?, ?, ?)")
 	if err != nil {
 		panic(err.Error())
 	}
-	_, e := stmt.Exec(event.Name, event.Description, event.Location, event.Time)
+	// _, e := stmt.Exec(event.Name, event.Description, event.Location, event.Time)
+	_, e := stmt.Exec(event.Name, event.Description, event.Location)
 	if e != nil {
 		panic(err.Error())
 	}
 
-	fmt.Printf("Created Event!")
+	// w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	// str := "SELECT event_id from events having event_id = max(event_id)" 
+	// result, err := db.Query(str)
+
+	type action struct{
+		Name string `json:"name"`
+		Text string `json:"text"`
+		Style string `json:"style"`
+		Type string `json:"type"`
+		Value string `json:"value"`
+	}
+
+	type attachment struct{
+		Text string `json:"text"`
+		Fallback string `json:"fallback"`
+		Color string `json:"color"`
+		Attachment_type string `json:"attachment_type"`
+		Actions []action `json:"actions"`
+	}
+
+	type obj struct{
+		Text string `json:"text"`
+		Attachments []attachment `json:"attachments"`
+	}
+
+	req := obj{
+		Text: event.Name,
+		Attachments: []attachment{
+			{
+				Text: "Please respond to the event",
+				Fallback: "You are unable to response to the event",
+				Color: "#3AA3E3",
+				Attachment_type: "default",
+				Actions: []action{
+					{
+						Name: "response",
+						Text: "Accept",
+						Style: "success",
+						Type: "button",
+						Value: "yes",
+					},
+					{
+						Name: "response",
+						Text: "Ignore",
+						Style: "danger",
+						Type: "button",
+						Value: "no",
+					},
+				},
+			},
+		},
+	}
+	var jsonData []byte
+	jsonData, err = json.Marshal(req)
+
+
+	if err != nil {
+		panic(err)
+	}
+
+	http.Post("https://hooks.slack.com/services/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", "application/json", bytes.NewBuffer(jsonData))
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+	
+	// var ev Event
+	fmt.Fprintln(w, string(jsonData))
+
+	// json.NewEncoder(w).Encode(ev)
+
+	
 }
 
 func EditEvent(w http.ResponseWriter, r *http.Request) {
@@ -41,16 +133,16 @@ func EditEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetEventDetails(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "GetEvent")
+	// fmt.Fprintln(w, "GetEvent")
 	vars := mux.Vars(r)
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
 	}
 	eventID := vars["eventid"]
-	fmt.Fprintln(w, "EventId:", eventID)
+	// fmt.Fprintln(w, "EventId:", eventID)
 	str := "SELECT * from events where event_id = " + eventID
-	fmt.Fprintln(w, str)
+	// fmt.Fprintln(w, str)
 
 	result, err := db.Query(str)
 	if err != nil {
@@ -67,7 +159,7 @@ func GetEventDetails(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-	fmt.Fprintln(w, ev.Name)
+	// fmt.Fprintln(w, ev.Name)
 
 	json.NewEncoder(w).Encode(ev)
 
