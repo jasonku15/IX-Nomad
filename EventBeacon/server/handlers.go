@@ -113,7 +113,7 @@ func AcceptEvent(w http.ResponseWriter, r *http.Request) {
 	var users []User
 	for result.Next() {
 		u := new(User)
-		err := result.Scan(u.UserId)
+		err := result.Scan(&u.UserId)
 		if err != nil {
 			panic(err)
 		}
@@ -133,7 +133,7 @@ func AcceptEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func QuitEvent(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Quit Event!")
+	fmt.Fprintln(w, "A user was removed from  Event!")
 	vars := mux.Vars(r)
 	eventID := vars["eventid"]
 	userID := vars["userid"]
@@ -158,7 +158,7 @@ func QuitEvent(w http.ResponseWriter, r *http.Request) {
 	var users []User
 	for result.Next() {
 		u := new(User)
-		err := result.Scan(u.UserId)
+		err := result.Scan(&u.UserId)
 		if err != nil {
 			panic(err)
 		}
@@ -192,7 +192,7 @@ func getAttendees(w http.ResponseWriter, r *http.Request) {
 	var users []User
 	for result.Next() {
 		u := new(User)
-		err := result.Scan(u.UserId)
+		err := result.Scan(&u.UserId)
 		if err != nil {
 			panic(err)
 		}
