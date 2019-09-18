@@ -24,7 +24,7 @@ var routes = Routes{
 		"GetEvent",
 		"GET",
 		"/getevent/{eventid}",
-		GetEvent,
+		GetEventDetails,
 	},
 	Route{
 		"EditEvent",
