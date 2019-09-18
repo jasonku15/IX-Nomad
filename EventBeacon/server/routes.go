@@ -32,4 +32,10 @@ var routes = Routes{
 		"/editevent/{eventid}",
 		EditEvent,
 	},
+	Route{
+		"SetupEvent",
+		"POST",
+		"/setupevent",
+		SetupEvent,
+	},
 }

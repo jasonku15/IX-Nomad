@@ -6,7 +6,98 @@ import (
 	"io/ioutil"
 	"github.com/gorilla/mux"
 	"encoding/json"
+	"net/http/httputil"
+	"strings"
+	"log"
+
+	//"github.com/nlopes/slack"
 )
+
+type SlackResponse struct {
+	response_type string `json:"response_type"`
+	text string `json:"text"`
+}
+
+type SlackRequest struct {
+	response_url string
+}
+
+func SetupEvent(w http.ResponseWriter, r *http.Request) {
+
+	/*scp, err := slack.SlashCommandParse(r)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}*/
+	
+	/*mux.Vars(r)
+	responseURL := vars["response_url"]
+	if responseURL == "" {
+		fmt.Println("error response URL")
+		http.Error(w, "No response URL", http.StatusInternalServerError)
+		return
+	}
+	fmt.Println("responseURL: ", responseURL)*/
+
+	/*decoder := json.NewDecoder(r.Body)
+	var slackRequest SlackRequest
+	err := decoder.Decode(&slackRequest)
+	if err != nil || slackRequest.response_url == "" {
+		fmt.Println("Error:", err.Error())
+		fmt.Println("error response URL")
+		http.Error(w, "No response URL", http.StatusInternalServerError)
+		return
+	}
+	responseURL := slackRequest.response_url
+	fmt.Println("response URL: ", slackRequest.response_url)*/
+
+	requestDump, err := httputil.DumpRequest(r, true)
+	if err != nil {
+	fmt.Println(err)
+	}
+	fmt.Println(string(requestDump))
+
+	r.ParseForm()
+	if r.FormValue("response_url") == "" {
+		fmt.Println("Missing response URL")
+		return
+	}
+	responseURL := r.FormValue("response_url")
+	fmt.Println("response URL: ", responseURL)
+	
+	/*slackResponse := SlackResponse {
+		response_type: "in_channel",
+		text: "It's 80 degrees right now.",
+	}
+	sr, err := json.Marshal(slackResponse)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}*/
+
+	jsonData := `{
+		"text": "It's 80 degrees right now.",
+		"attachments": [
+			{
+				"text":"Partly cloudy today and tomorrow"
+			}
+		]
+	}`
+	jdReader := strings.NewReader(jsonData)
+	//_, err = http.Post(responseURL, "application/json", bytes.NewBuffer(sr))
+	_, err = http.Post(responseURL, "application/json", jdReader)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	//json.NewEncoder(w).Encode(slackResponse)
+
+	//w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	//w.Header().Add("Content-Type", "application/json")
+	//fmt.Fprintln(w, "Hello World")
+	//w.Write([]byte("Hello World"))
+
+}
 
 func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	stmt,err := db.Prepare("INSERT INTO events(name, description, location) VALUES('HACKATHON', 'hackathon', 'mtcc')")
