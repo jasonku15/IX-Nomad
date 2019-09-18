@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-
 @Component({ 
     selector: 'app-root', 
     templateUrl: 'app.component.html', 
-    styleUrls: ['./app.component.css'] 
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
     registerForm: FormGroup;
@@ -22,7 +21,7 @@ export class AppComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             location: ['', [Validators.required]],
             start: ['', [Validators.required]],
-            end: ['', [Validators.required]]
+            end: ['', [Validators.required]],
         });
     }
 
@@ -36,9 +35,6 @@ export class AppComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         }
-
-        // display form values on success
-        alert('Successfully submitted event');
     }
 
     onReset() {

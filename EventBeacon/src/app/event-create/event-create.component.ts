@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 @Component({
   selector: 'app-event-create',
@@ -10,8 +12,9 @@ import { BrowserModule } from '@angular/platform-browser';
 export class EventCreateComponent implements OnInit {
   registerForm: FormGroup;
     submitted = false;
+    apiURL = "http://34.70.59.156/api/createevent?text=";
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) { }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -37,7 +40,14 @@ export class EventCreateComponent implements OnInit {
         }
 
         // display form values on success
-        alert('Successfully submitted event');
+
+        console.log(this.apiURL + this.registerForm.value.title + "+2+3");
+
+        return this.httpClient.post(this.apiURL + this.registerForm.value.title + "+2+3", {}).subscribe(
+            (response) => {
+                console.log(response);
+            }
+        );
     }
 
     onReset() {
