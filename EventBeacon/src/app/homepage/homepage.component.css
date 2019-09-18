@@ -16,10 +16,22 @@
 	text-align: center;
 	color: black;
 	padding-top: 50px;
+	text-transform: uppercase;
 }
 
 #descriptionText {
 	color: black;
 	text-align: center;
 	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+.point-card-left{
+	margin-right: 2px;
+}
+
+#examples {
+	margin-bottom: 20px;
+	margin-top: -30px;
+	letter-spacing: 2px;
 }
