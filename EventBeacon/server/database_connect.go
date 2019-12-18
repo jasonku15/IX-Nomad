@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	// "os"
 )
 
 const (
@@ -21,8 +20,7 @@ func initDb() {
 	config := dbConfig()
 	var err error
 	psqlInfo := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
-	config[dbuser], config[dbpass], config[dbhost], config[dbport], config[dbname])
-
+		config[dbuser], config[dbpass], config[dbhost], config[dbport], config[dbname])
 
 	db, err = sql.Open("mysql", psqlInfo)
 	if err != nil {
@@ -68,6 +66,5 @@ func dbConfig() map[string]string {
 	conf[dbuser] = "root"
 	conf[dbpass] = ""
 	conf[dbname] = "go-mysql-crud"
-
 	return conf
 }

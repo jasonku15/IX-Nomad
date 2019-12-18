@@ -32,4 +32,22 @@ var routes = Routes{
 		"/editevent/{eventid}",
 		EditEvent,
 	},
+	Route{
+		"AcceptEvent",
+		"GET",
+		"/acceptevent/{eventid}/{userid}",
+		AcceptEvent,
+	},
+	Route{
+		"QuitEvent",
+		"GET",
+		"/quitevent/{eventid}/{userid}",
+		QuitEvent,
+	},
+	Route{
+		"GetAtendees",
+		"GET",
+		"/getAttendees/{eventid}",
+		QuitEvent,
+	},
 }

@@ -10,6 +10,7 @@ CREATE TABLE `events` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `location` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `time` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`event_id`)
 );
 
@@ -17,8 +18,8 @@ CREATE TABLE `events` (
 DROP TABLE IF EXISTS `event_subscription`;
 CREATE TABLE `event_subscription` (
 
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL ,
   `event_id` int(11),
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`user_id`, `event_id`),
   FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
